@@ -21,7 +21,7 @@ const MovieGrid = () => {
       .get<FetchMoviesResponse>("/movie/popular")
       .then((res) => setMovies(res.data.results))
       .catch((err) => setError(err.message));
-  });
+  }, []);
 
   return (
     <>
