@@ -15,14 +15,12 @@ function App() {
         <NavBar></NavBar>
       </GridItem>
       <Show above="lg">
-        <GridItem area="aside">
+        <GridItem area="aside" paddingX={5} paddingTop={9}>
           <GenreList />
         </GridItem>
       </Show>
       <GridItem area="main">
         <MovieGrid endpoint="/trending/movie/day" />
-        <MovieGrid endpoint="/movie/popular" />
-        <MovieGrid endpoint="/movie/top_rated" />
       </GridItem>
     </Grid>
   );
