@@ -2,19 +2,17 @@ import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
 
-export interface Movie {
+export interface Genre {
     id: number;
-    title: string;
-    poster_path: string;
+    name: string;
   }
   
-  interface FetchMoviesResponse {
-    page: number;
-    results: Movie[];
+  interface FetchGenreResponse {
+    genres: Genre[];
   }
 
-const useMovies = (endpoint: string) => {
-    const [movies, setMovies] = useState<Movie[]>([]);
+const useGenres = () => {
+    const [genres, setGenres] = useState<Genre[]>([]);
     const [error, setError] = useState("");
   
     useEffect(() => {
@@ -22,8 +20,8 @@ const useMovies = (endpoint: string) => {
 
 
       apiClient
-        .get<FetchMoviesResponse>(endpoint, {signal: controller.signal})
-        .then((res) => setMovies(res.data.results))
+        .get<FetchGenreResponse>("/genre/movie/list", {signal: controller.signal})
+        .then((res) => setGenres(res.data.genres))
         .catch((err) => {
             if(err instanceof CanceledError) return;
             setError(err.message)});
@@ -31,7 +29,7 @@ const useMovies = (endpoint: string) => {
         return () => controller.abort();
     }, []);
 
-    return {movies, error};
+    return {genres, error};
 }
 
-export default useMovies;
+export default useGenres;

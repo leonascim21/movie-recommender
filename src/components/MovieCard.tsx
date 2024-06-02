@@ -1,4 +1,3 @@
-import React from "react";
 import { Movie } from "../hooks/useMovies";
 import { Card, CardBody, Heading, Image } from "@chakra-ui/react";
 
