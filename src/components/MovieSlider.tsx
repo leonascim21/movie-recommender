@@ -12,7 +12,8 @@ interface Props {
 }
 
 const MovieSlider = ({ endpoint, title, genre }: Props) => {
-  const { movies, error, isLoading } = useMovies(endpoint, genre);
+  const page = 1;
+  const { movies, error, isLoading } = useMovies(endpoint, page, genre);
   const skeletons = [1, 2, 3, 4, 5, 6];
   const scrollRef = useRef<HTMLDivElement>(null);
 

@@ -1,5 +1,5 @@
 import { Movie } from "../hooks/useMovies";
-import { Box, Card, CardBody, Heading, Image } from "@chakra-ui/react";
+import { Box, Card, Heading, Image } from "@chakra-ui/react";
 
 interface Props {
   movie: Movie;
@@ -8,16 +8,25 @@ interface Props {
 const MovieCard = ({ movie }: Props) => {
   return (
     <Card borderRadius={10} overflow="hidden">
-      <Box _hover={{ textDecoration: "underline" }}>
+      <Box position="relative" _hover={{ "& > div": { opacity: 1 } }}>
         <Image src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} />
+        <Box
+          position="absolute"
+          bottom="0"
+          width="100%"
+          opacity="0"
+          bg="rgba(0, 0, 0, 0.6)"
+          transition="0.3s"
+          textAlign="center"
+          p="4"
+        >
+          <Heading color="white" size="md">
+            {movie.title}
+          </Heading>
+        </Box>
       </Box>
     </Card>
   );
 };
 
 export default MovieCard;
-
-//SE EU QUISER COLOCAR O TITULO DVOLTA E SO BOTAR ISSO NA BOX
-/* <CardBody>
-<Heading fontSize="2xl">{movie.title}</Heading>
-</CardBody> */
