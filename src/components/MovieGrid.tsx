@@ -4,10 +4,11 @@ import MovieCard from "./MovieCard";
 
 interface Props {
   endpoint: string;
+  genre?: string;
 }
 
-const MovieGrid = ({ endpoint }: Props) => {
-  const { movies, error } = useMovies(endpoint);
+const MovieGrid = ({ endpoint, genre }: Props) => {
+  const { movies, error } = useMovies(endpoint, genre);
 
   return (
     <>

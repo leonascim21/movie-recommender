@@ -1,0 +1,99 @@
+import { Box, Heading, HStack, IconButton, Text } from "@chakra-ui/react";
+import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import { useRef } from "react";
+import useMovies from "../hooks/useMovies";
+import MovieCard from "./MovieCard";
+
+interface Props {
+  endpoint: string;
+  title: string;
+  genre?: string;
+}
+
+const MovieSlider = ({ endpoint, title, genre }: Props) => {
+  const { movies, error } = useMovies(endpoint, genre);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: -300, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: 300, behavior: "smooth" });
+    }
+  };
+
+  return (
+    <Box padding="20px" position="relative" maxWidth="90%">
+      <Heading mb="4">{title}</Heading>
+      <Box
+        position="relative"
+        width="100%"
+        overflow="hidden"
+        maxWidth="calc(100vw - 80px)"
+      >
+        <IconButton
+          aria-label="Scroll left"
+          icon={<ArrowBackIcon />}
+          position="absolute"
+          left="10px"
+          top="50%"
+          transform="translateY(-50%)"
+          zIndex={2}
+          onClick={scrollLeft}
+          bg="rgba(0, 0, 0, 0.8)"
+          _hover={{ bg: "rgba(0, 0, 0, 0.9)" }}
+          size="lg"
+        />
+        <HStack
+          ref={scrollRef}
+          spacing="10px"
+          padding="10px"
+          whiteSpace="nowrap"
+          scrollBehavior="smooth"
+          css={{
+            "&::-webkit-scrollbar": {
+              display: "none",
+            },
+            msOverflowStyle: "none",
+            scrollbarWidth: "none",
+          }}
+          overflowX="auto"
+        >
+          {error && <Text>{error}</Text>}
+          {movies.map((movie) => (
+            <Box
+              key={movie.id}
+              minWidth="200px"
+              maxWidth="200px"
+              borderRadius="10px"
+              overflow="hidden"
+              textAlign="center"
+            >
+              <MovieCard movie={movie}></MovieCard>
+            </Box>
+          ))}
+        </HStack>
+        <IconButton
+          aria-label="Scroll right"
+          icon={<ArrowForwardIcon />}
+          position="absolute"
+          right="10px"
+          top="50%"
+          transform="translateY(-50%)"
+          zIndex={2}
+          onClick={scrollRight}
+          bg="rgba(0, 0, 0, 0.8)"
+          _hover={{ bg: "rgba(0, 0, 0, 0.9)" }}
+          boxShadow="md"
+          size="lg"
+        />
+      </Box>
+    </Box>
+  );
+};
+
+export default MovieSlider;

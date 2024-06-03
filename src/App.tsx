@@ -1,28 +1,22 @@
-import { Grid, GridItem, Show } from "@chakra-ui/react";
-import NavBar from "./components/NavBar";
-import MovieGrid from "./components/MovieGrid";
-import GenreList from "./components/GenreList";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import MoviePage from "./pages/MoviePage";
+import GenrePage from "./pages/GenrePage";
+import NoPage from "./pages/NoPage";
 
 function App() {
   return (
-    <Grid
-      templateAreas={{
-        base: `"nav" "main"`,
-        lg: `"nav nav" "aside main"`,
-      }}
-    >
-      <GridItem area="nav">
-        <NavBar></NavBar>
-      </GridItem>
-      <Show above="lg">
-        <GridItem area="aside" paddingX={5} paddingTop={9}>
-          <GenreList />
-        </GridItem>
-      </Show>
-      <GridItem area="main">
-        <MovieGrid endpoint="/trending/movie/day" />
-      </GridItem>
-    </Grid>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<HomePage />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/movie" element={<MoviePage />} />
+          <Route path="/genre" element={<GenrePage />} />
+          <Route path="*" element={<NoPage />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

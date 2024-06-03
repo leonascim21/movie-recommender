@@ -1,4 +1,4 @@
-import { HStack, Image, List, ListItem, Text } from "@chakra-ui/react";
+import { Box, HStack, Image, List, ListItem, Text } from "@chakra-ui/react";
 import useGenres from "../hooks/useGenres";
 import i12 from "../assets/categoryIcons/i12.png";
 import i14 from "../assets/categoryIcons/i14.png";
@@ -48,11 +48,17 @@ const GenreList = () => {
   return (
     <List>
       {genres.map((genre) => (
-        <ListItem key={genre.id} paddingY="5px">
-          <HStack>
-            <Image src={genreIcons[genre.id]} boxSize="32px" borderRadius={8} />
-            <Text fontSize="lg">{genre.name}</Text>
-          </HStack>
+        <ListItem key={genre.id} paddingY="6px">
+          <Box _hover={{ textDecoration: "underline" }}>
+            <HStack>
+              <Image
+                src={genreIcons[genre.id]}
+                boxSize="32px"
+                borderRadius={8}
+              />
+              <Text fontSize="lg">{genre.name}</Text>
+            </HStack>
+          </Box>
         </ListItem>
       ))}
     </List>
