@@ -3,9 +3,19 @@ import GenreList from "../components/GenreList";
 import MovieGrid from "../components/MovieGrid";
 import { Button, Flex, Grid, GridItem, Show } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const GenrePage = () => {
   const { genreId } = useParams();
+  const [page, setPage] = useState(1);
+
+  const loadMoreMovies = () => {
+    setPage((prevPage) => prevPage + 1);
+  };
+
+  useEffect(() => {
+    setPage(1);
+  }, [genreId]);
 
   return (
     <>
@@ -26,12 +36,16 @@ const GenrePage = () => {
           </GridItem>
         </Show>
         <GridItem area="main">
-          <MovieGrid endpoint="/discover/movie" genre={genreId}></MovieGrid>
+          <MovieGrid
+            endpoint="/discover/movie"
+            genre={genreId}
+            page={page}
+          ></MovieGrid>
         </GridItem>
       </Grid>
 
       <Flex paddingBottom="20px" justifyContent="center">
-        <Button>Show More</Button>
+        <Button onClick={loadMoreMovies}>Show More</Button>
       </Flex>
     </>
   );

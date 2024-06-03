@@ -14,7 +14,7 @@ export interface Movie {
     results: Movie[];
   }
 
-const useMovies = (endpoint: string, genre?: string) => {
+const useMovies = (endpoint: string, page:number, genre?: string) => {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [error, setError] = useState("");
     const [isLoading, setLoading] = useState(false);
@@ -27,17 +27,22 @@ const useMovies = (endpoint: string, genre?: string) => {
         include_adult : 'false',
         include_video : 'false',
         language: 'en-us',
-        page: '1',
+        page: page.toString(),
         sort_by: 'popular.desc',
         with_genres: genre,
       } : {
-        page: '1'
+        page: page.toString()
       };
       
       setLoading(true);
       apiClient
         .get<FetchMoviesResponse>(endpoint, {params, signal: controller.signal})
-        .then((res) => {setMovies(res.data.results);
+        .then((res) => {
+          if (page === 1) {
+          setMovies(res.data.results);
+        } else {
+          setMovies((prevMovies) => [...prevMovies, ...res.data.results]);
+        }
           setLoading(false);
         })
         .catch((err) => {
@@ -46,7 +51,7 @@ const useMovies = (endpoint: string, genre?: string) => {
           setLoading(false);});
 
         return () => controller.abort();
-    }, [endpoint, genre]);
+    }, [endpoint, genre, page]);
 
     return {movies, error, isLoading};
 }

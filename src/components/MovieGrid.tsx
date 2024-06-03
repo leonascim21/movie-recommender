@@ -6,10 +6,11 @@ import MovieCardSkeleton from "./MovieCardSkeleton";
 interface Props {
   endpoint: string;
   genre?: string;
+  page: number;
 }
 
-const MovieGrid = ({ endpoint, genre }: Props) => {
-  const { movies, error, isLoading } = useMovies(endpoint, genre);
+const MovieGrid = ({ endpoint, page, genre }: Props) => {
+  const { movies, error, isLoading } = useMovies(endpoint, page, genre);
   const skeletons = [1, 2, 3, 4, 5, 6];
 
   return (
