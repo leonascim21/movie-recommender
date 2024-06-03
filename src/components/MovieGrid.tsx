@@ -15,7 +15,7 @@ const MovieGrid = ({ endpoint, genre }: Props) => {
   return (
     <>
       {error && <Text>{error}</Text>}
-      <SimpleGrid columns={{ sm: 2, md: 3, xl: 5 }} padding="10" spacing={10}>
+      <SimpleGrid columns={{ sm: 2, md: 4, xl: 5 }} padding="10" spacing={10}>
         {isLoading &&
           skeletons.map((skeleton) => <MovieCardSkeleton key={skeleton} />)}
 

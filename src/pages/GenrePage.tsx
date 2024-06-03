@@ -1,7 +1,7 @@
 import NavBar from "../components/NavBar";
 import GenreList from "../components/GenreList";
 import MovieGrid from "../components/MovieGrid";
-import { Grid, GridItem, Show } from "@chakra-ui/react";
+import { Button, Flex, Grid, GridItem, Show } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
 const GenrePage = () => {
@@ -29,6 +29,10 @@ const GenrePage = () => {
           <MovieGrid endpoint="/discover/movie" genre={genreId}></MovieGrid>
         </GridItem>
       </Grid>
+
+      <Flex paddingBottom="20px" justifyContent="center">
+        <Button>Show More</Button>
+      </Flex>
     </>
   );
 };
