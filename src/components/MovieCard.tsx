@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Movie } from "../hooks/useMovies";
 import { Box, Card, Heading, Image } from "@chakra-ui/react";
 
@@ -6,8 +7,19 @@ interface Props {
 }
 
 const MovieCard = ({ movie }: Props) => {
+  const navigate = useNavigate();
+
+  const handleClick = (id: number) => {
+    navigate(`/movie/${id}`);
+  };
+
   return (
-    <Card borderRadius={10} overflow="hidden">
+    <Card
+      cursor="pointer"
+      onClick={() => handleClick(movie.id)}
+      borderRadius={10}
+      overflow="hidden"
+    >
       <Box position="relative" _hover={{ "& > div": { opacity: 1 } }}>
         <Image src={"https://image.tmdb.org/t/p/w500" + movie.poster_path} />
         <Box

@@ -1,5 +1,5 @@
 import { Box, HStack, Image } from "@chakra-ui/react";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo.webp";
 import ColorModeSwitch from "./ColorModeSwitch";
 import { useNavigate } from "react-router-dom";
 
@@ -17,7 +17,7 @@ const NavBar = () => {
           cursor="pointer"
           onClick={handleClick}
           src={logo}
-          boxSize="60px"
+          boxSize="90px"
         />
         <ColorModeSwitch />
       </HStack>
