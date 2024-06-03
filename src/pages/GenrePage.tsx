@@ -2,14 +2,19 @@ import NavBar from "../components/NavBar";
 import GenreList from "../components/GenreList";
 import MovieGrid from "../components/MovieGrid";
 import { Grid, GridItem, Show } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
 
 const GenrePage = () => {
+  const { genreId } = useParams();
+
   return (
     <>
       <Grid
         templateAreas={{
-          base: `"nav" "main"`,
-          lg: `"nav nav" "aside main"`,
+          base: `"nav" 
+                "main"`,
+          lg: `"nav nav"
+              "aside main"`,
         }}
       >
         <GridItem area="nav">
@@ -21,7 +26,7 @@ const GenrePage = () => {
           </GridItem>
         </Show>
         <GridItem area="main">
-          <MovieGrid endpoint="/discover/movie" genre="99"></MovieGrid>
+          <MovieGrid endpoint="/discover/movie" genre={genreId}></MovieGrid>
         </GridItem>
       </Grid>
     </>

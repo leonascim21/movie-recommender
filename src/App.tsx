@@ -12,7 +12,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/movie" element={<MoviePage />} />
-          <Route path="/genre" element={<GenrePage />} />
+          <Route path="/genre/:genreId" element={<GenrePage />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
       </BrowserRouter>

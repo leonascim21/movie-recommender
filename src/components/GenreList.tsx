@@ -19,6 +19,7 @@ import i10749 from "../assets/categoryIcons/i10749.png";
 import i10751 from "../assets/categoryIcons/i10751.png";
 import i10752 from "../assets/categoryIcons/i10752.png";
 import i10770 from "../assets/categoryIcons/i10770.png";
+import { useNavigate } from "react-router-dom";
 
 const genreIcons: { [key: number]: string } = {
   12: i12,
@@ -44,11 +45,21 @@ const genreIcons: { [key: number]: string } = {
 
 const GenreList = () => {
   const { genres } = useGenres();
+  const navigate = useNavigate();
+
+  const handleClick = (id: number) => {
+    navigate(`/genre/${id}`);
+  };
 
   return (
     <List>
       {genres.map((genre) => (
-        <ListItem key={genre.id} paddingY="6px">
+        <ListItem
+          onClick={() => handleClick(genre.id)}
+          key={genre.id}
+          paddingY="6px"
+          cursor="pointer"
+        >
           <Box _hover={{ textDecoration: "underline" }}>
             <HStack>
               <Image

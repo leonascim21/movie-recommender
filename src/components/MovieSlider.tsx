@@ -3,6 +3,7 @@ import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import { useRef } from "react";
 import useMovies from "../hooks/useMovies";
 import MovieCard from "./MovieCard";
+import MovieCardSkeleton from "./MovieCardSkeleton";
 
 interface Props {
   endpoint: string;
@@ -11,7 +12,8 @@ interface Props {
 }
 
 const MovieSlider = ({ endpoint, title, genre }: Props) => {
-  const { movies, error } = useMovies(endpoint, genre);
+  const { movies, error, isLoading } = useMovies(endpoint, genre);
+  const skeletons = [1, 2, 3, 4, 5, 6];
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scrollLeft = () => {
@@ -64,6 +66,10 @@ const MovieSlider = ({ endpoint, title, genre }: Props) => {
           overflowX="auto"
         >
           {error && <Text>{error}</Text>}
+
+          {isLoading &&
+            skeletons.map((skeleton) => <MovieCardSkeleton key={skeleton} />)}
+
           {movies.map((movie) => (
             <Box
               key={movie.id}

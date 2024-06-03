@@ -17,11 +17,11 @@ export interface Movie {
 const useMovies = (endpoint: string, genre?: string) => {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [error, setError] = useState("");
+    const [isLoading, setLoading] = useState(false);
   
     useEffect(() => {
       const controller = new AbortController();
 
-      console.log(genre)
       
       const params = genre ? {
         include_adult : 'false',
@@ -30,19 +30,25 @@ const useMovies = (endpoint: string, genre?: string) => {
         page: '1',
         sort_by: 'popular.desc',
         with_genres: genre,
-      } : {};
+      } : {
+        page: '1'
+      };
       
+      setLoading(true);
       apiClient
         .get<FetchMoviesResponse>(endpoint, {params, signal: controller.signal})
-        .then((res) => setMovies(res.data.results))
+        .then((res) => {setMovies(res.data.results);
+          setLoading(false);
+        })
         .catch((err) => {
             if(err instanceof CanceledError) return;
-            setError(err.message)});
+            setError(err.message);
+          setLoading(false);});
 
         return () => controller.abort();
-    }, []);
+    }, [endpoint, genre]);
 
-    return {movies, error};
+    return {movies, error, isLoading};
 }
 
 export default useMovies;
