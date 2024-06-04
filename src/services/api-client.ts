@@ -1,8 +1,11 @@
 import axios from "axios";
 
+const apiKey = import.meta.env.VITE_API_KEY;
+console.log(apiKey)
+
 export default axios.create({
     baseURL: "https://api.themoviedb.org/3",
     params:{
-        api_key: "00daf7eeceff66a8392a02c0840b6502"
+        api_key: apiKey,
     }
-})
+});
