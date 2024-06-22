@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage";
 import MoviePage from "./pages/MoviePage";
 import GenrePage from "./pages/GenrePage";
 import NoPage from "./pages/NoPage";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/movie/:movieId" element={<MoviePage />} />
           <Route path="/genre/:genreId" element={<GenrePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<GenrePage />} />
+          <Route path="/account/:userId" element={<GenrePage />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
       </BrowserRouter>
