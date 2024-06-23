@@ -12,6 +12,7 @@ import {
 import NavBar from "../components/NavBar";
 import { useParams } from "react-router-dom";
 import useMovieDetails from "../hooks/useMovieDetails";
+import CriticBadge from "../components/CriticBadge";
 
 const MoviePage = () => {
   const { movieId } = useParams();
@@ -53,9 +54,7 @@ const MoviePage = () => {
                 <Text>{`Movie Duration: ${details.runtime} minutes`}</Text>
               </Box>
               <VStack alignItems="flex-start" pl="8">
-                <Text>
-                  {`Approval Rating: ${details.vote_average.toFixed(1)} / 10`}{" "}
-                </Text>
+                <CriticBadge rating={(details.vote_average * 10).toFixed(0)} />
                 <Text>PLACEHOLDER</Text>
               </VStack>
             </HStack>
