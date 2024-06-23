@@ -13,6 +13,7 @@ import NavBar from "../components/NavBar";
 import { useParams } from "react-router-dom";
 import useMovieDetails from "../hooks/useMovieDetails";
 import CriticBadge from "../components/CriticBadge";
+import LikeButton from "../components/LikeButton";
 
 const MoviePage = () => {
   const { movieId } = useParams();
@@ -34,40 +35,51 @@ const MoviePage = () => {
   return (
     <>
       <NavBar />
-      <Flex justifyContent="center">
-        <HStack>
-          <Box width="50%" pl="5" pt="5">
+      <Flex justifyContent="center" pt="5">
+        <HStack alignItems="start" spacing="5">
+          <Box>
             <Image
               height="600px"
               src={`https://image.tmdb.org/t/p/original${details.poster_path}`}
             />
-            <HStack pt="5">
-              {details.genres.map((genre) => (
-                <Button _active="none" _hover="none" cursor="default">
-                  {genre.name}
-                </Button>
-              ))}
-            </HStack>
-            <HStack pt="5" fontWeight="bold">
-              <Box pl="2px" pt="5px">
-                <Text>{`Release Date: ${details.release_date}`}</Text>
-                <Text>{`Movie Duration: ${details.runtime} minutes`}</Text>
-              </Box>
-              <VStack alignItems="flex-start" pl="8">
-                <CriticBadge rating={(details.vote_average * 10).toFixed(0)} />
-                <Text>PLACEHOLDER</Text>
-              </VStack>
-            </HStack>
           </Box>
-          <Box width="50%">
+          <Box width="480px">
             <Heading>{details.title}</Heading>
-            <Text maxW="480px">{details.overview}</Text>
-            <AspectRatio width="480px" height="270px" ratio={1}>
+            <Text py={5} maxW="480px">
+              {details.overview}
+            </Text>
+            <AspectRatio width="480px" ratio={16 / 9}>
               <iframe
                 src={`https://www.youtube.com/embed/${trailer}`}
                 allowFullScreen
               />
             </AspectRatio>
+            <VStack alignItems="center" pt="5">
+              <HStack>
+                {details.genres.map((genre) => (
+                  <Button
+                    _active="none"
+                    _hover="none"
+                    cursor="default"
+                    key={genre.id}
+                  >
+                    {genre.name}
+                  </Button>
+                ))}
+              </HStack>
+              <HStack pt="5" fontWeight="bold">
+                <Box pl="2px" pt="5px">
+                  <Text pb={5}>{`Release Date: ${details.release_date}`}</Text>
+                  <Text>{`Movie Duration: ${details.runtime} minutes`}</Text>
+                </Box>
+                <VStack alignItems="flex-start" pl="8">
+                  <CriticBadge
+                    rating={(details.vote_average * 10).toFixed(0)}
+                  />
+                  <LikeButton />
+                </VStack>
+              </HStack>
+            </VStack>
           </Box>
         </HStack>
       </Flex>

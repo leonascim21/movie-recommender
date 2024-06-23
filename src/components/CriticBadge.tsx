@@ -17,7 +17,14 @@ const CriticBadge = ({ rating }: Props) => {
   }
 
   return (
-    <Badge colorScheme={color} fontSize="14px" paddingX={2} borderRadius="4px">
+    <Badge
+      width="47px"
+      colorScheme={color}
+      fontSize="14px"
+      paddingX={2}
+      borderRadius="4px"
+      textAlign="center"
+    >
       {numRating}
     </Badge>
   );
