@@ -16,30 +16,36 @@ import { FaGoogle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.webp";
 
-const LoginPage: React.FC = () => {
+const SignUpPage: React.FC = () => {
+  const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
 
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setName(e.target.value);
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) =>
     setEmail(e.target.value);
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) =>
     setPassword(e.target.value);
+  const handleConfirmPasswordChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setConfirmPassword(e.target.value);
 
   const navigate = useNavigate();
-  const handleClickSignUp = () => {
-    navigate("/signup");
+  const handleClickLogin = () => {
+    navigate("/login");
   };
 
   const handleClickHome = () => {
     navigate(`/`);
   };
 
-  const handleLogin = async () => {
-    //TODO: ADD LOGIN LOGIC
+  const handleSignUp = async () => {
+    //TODO: ADD SIGN UP LOGIC
   };
 
-  const handleGoogleLogin = async () => {
-    //TODO: ADD GOOGLE LOGIN LOGIC
+  const handleGoogleSignUp = async () => {
+    //TODO: ADD GOOGLE SIGN UP LOGIC
   };
 
   const bgColor = useColorModeValue("white", "#1A202C");
@@ -75,10 +81,21 @@ const LoginPage: React.FC = () => {
           mx={[4, 4, 0]}
         >
           <Box textAlign="center">
-            <Heading color={textColor}>Login</Heading>
+            <Heading color={textColor}>Sign Up</Heading>
           </Box>
           <Box my={4} textAlign="left">
             <FormControl isRequired>
+              <FormLabel color={textColor}>Name</FormLabel>
+              <Input
+                type="text"
+                placeholder="Enter your name"
+                value={name}
+                onChange={handleNameChange}
+                bg={bgColor}
+                color={textColor}
+              />
+            </FormControl>
+            <FormControl mt={4} isRequired>
               <FormLabel color={textColor}>Email</FormLabel>
               <Input
                 type="email"
@@ -100,14 +117,25 @@ const LoginPage: React.FC = () => {
                 color={textColor}
               />
             </FormControl>
+            <FormControl mt={6} isRequired>
+              <FormLabel color={textColor}>Confirm Password</FormLabel>
+              <Input
+                type="password"
+                placeholder="Confirm your password"
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
+                bg={bgColor}
+                color={textColor}
+              />
+            </FormControl>
             <Button
               width="full"
               mt={4}
-              onClick={handleLogin}
+              onClick={handleSignUp}
               bg={hoverColor}
               color={textColor}
             >
-              Login
+              Sign Up
             </Button>
           </Box>
           <Divider my={4} borderColor={textColor} />
@@ -115,22 +143,22 @@ const LoginPage: React.FC = () => {
             width="full"
             variant="outline"
             leftIcon={<FaGoogle />}
-            onClick={handleGoogleLogin}
+            onClick={handleGoogleSignUp}
             color={textColor}
             borderColor={textColor}
             _hover={{ bg: hoverColor }}
           >
-            Login with Google
+            Sign Up with Google
           </Button>
           <Text mt={4} textAlign="center" color={textColor}>
-            Don't have an account?{" "}
+            Already have an account?{" "}
             <Text
               as="span"
               color="blue.500"
               cursor="pointer"
-              onClick={handleClickSignUp}
+              onClick={handleClickLogin}
             >
-              Sign Up
+              Login
             </Text>
           </Text>
         </Box>
@@ -139,4 +167,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage;
+export default SignUpPage;

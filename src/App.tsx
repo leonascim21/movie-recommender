@@ -4,6 +4,7 @@ import MoviePage from "./pages/MoviePage";
 import GenrePage from "./pages/GenrePage";
 import NoPage from "./pages/NoPage";
 import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
           <Route path="/movie/:movieId" element={<MoviePage />} />
           <Route path="/genre/:genreId" element={<GenrePage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<GenrePage />} />
+          <Route path="/signup" element={<SignUpPage />} />
           <Route path="/account/:userId" element={<GenrePage />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
