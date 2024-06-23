@@ -76,7 +76,7 @@ const MoviePage = () => {
                   <CriticBadge
                     rating={(details.vote_average * 10).toFixed(0)}
                   />
-                  <LikeButton />
+                  <LikeButton movieId={Number(movieId)} />
                 </VStack>
               </HStack>
             </VStack>

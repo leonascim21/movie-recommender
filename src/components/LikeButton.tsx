@@ -1,12 +1,57 @@
-import { Button, useColorModeValue } from "@chakra-ui/react";
-import { useState } from "react";
+import { Button, Tooltip, useColorModeValue } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { useAuth } from "../hooks/useAuth";
+import {
+  doc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+  increment,
+} from "firebase/firestore";
+import { db } from "../firebaseConfig";
+import useMovieDetails from "../hooks/useMovieDetails";
 
-const LikeButton = () => {
+interface LikeButtonProps {
+  movieId: number;
+}
+
+const LikeButton = ({ movieId }: LikeButtonProps) => {
+  const { currentUser, likedMovies } = useAuth();
+  const { details } = useMovieDetails(movieId);
   const [isLiked, setIsLiked] = useState(false);
 
-  const handleClick = () => {
+  useEffect(() => {
+    if (!currentUser) return;
+    setIsLiked(likedMovies.includes(movieId));
+  }, [currentUser, likedMovies, movieId]);
+
+  const handleClick = async () => {
+    if (!currentUser || !details) return;
+
     setIsLiked(!isLiked);
+
+    const userDocRef = doc(db, "users", currentUser.uid);
+
+    if (!isLiked) {
+      await updateDoc(userDocRef, {
+        likedMovies: arrayUnion(movieId),
+      });
+      details.genres.forEach((genre) => {
+        updateDoc(userDocRef, {
+          [`genreCount.${genre.id}`]: increment(1),
+        });
+      });
+    } else {
+      await updateDoc(userDocRef, {
+        likedMovies: arrayRemove(movieId),
+      });
+      details.genres.forEach((genre) => {
+        updateDoc(userDocRef, {
+          [`genreCount.${genre.id}`]: increment(-1),
+        });
+      });
+    }
   };
 
   const bg = useColorModeValue("gray.200", "gray.700");
@@ -14,20 +59,26 @@ const LikeButton = () => {
   const iconColor = useColorModeValue("black", "white");
 
   return (
-    <Button
-      onClick={handleClick}
-      bg={bg}
-      _hover={{ bg: hoverBg }}
-      colorScheme="gray"
-      size="lg"
-      p={0}
+    <Tooltip
+      label={!currentUser ? "You need to be logged in to like movies" : ""}
+      fontSize="md"
     >
-      {isLiked ? (
-        <AiFillHeart color="red" size="24px" />
-      ) : (
-        <AiOutlineHeart color={iconColor} size="24px" />
-      )}
-    </Button>
+      <Button
+        onClick={handleClick}
+        bg={bg}
+        _hover={{ bg: hoverBg }}
+        colorScheme="gray"
+        size="lg"
+        p={0}
+        disabled={!currentUser}
+      >
+        {isLiked ? (
+          <AiFillHeart color="red" size="24px" />
+        ) : (
+          <AiOutlineHeart color={iconColor} size="24px" />
+        )}
+      </Button>
+    </Tooltip>
   );
 };
 
