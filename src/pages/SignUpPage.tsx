@@ -11,6 +11,8 @@ import {
   Text,
   useColorModeValue,
   Image,
+  useToast,
+  Tooltip,
 } from "@chakra-ui/react";
 import { FaGoogle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -22,8 +24,9 @@ const SignUpPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const { signup } = useAuth();
+  const { signup, signupWithGoogle } = useAuth();
   const navigate = useNavigate();
+  const toast = useToast();
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) =>
     setName(e.target.value);
@@ -44,19 +47,42 @@ const SignUpPage: React.FC = () => {
 
   const handleSignUp = async () => {
     if (password !== confirmPassword) {
-      console.error("Passwords do not match");
+      toast({
+        title: "Sign up failed.",
+        description: "Passwords do not match.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
       return;
     }
     try {
       await signup(email, password);
       navigate("/home");
     } catch (error) {
-      console.error("Failed to sign up", error);
+      toast({
+        title: "Sign up failed.",
+        description: "Invalid email or password.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     }
   };
 
   const handleGoogleSignUp = async () => {
-    // TODO: ADD GOOGLE SIGN UP LOGIC
+    try {
+      await signupWithGoogle();
+      navigate("/home");
+    } catch (error) {
+      toast({
+        title: "Google sign up failed.",
+        description: "Something went wrong. Please try again.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
   };
 
   const bgColor = useColorModeValue("white", "#1A202C");
@@ -119,14 +145,19 @@ const SignUpPage: React.FC = () => {
             </FormControl>
             <FormControl mt={6} isRequired>
               <FormLabel color={textColor}>Password</FormLabel>
-              <Input
-                type="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={handlePasswordChange}
-                bg={bgColor}
-                color={textColor}
-              />
+              <Tooltip
+                label="Password must be at least 6 characters"
+                fontSize="md"
+              >
+                <Input
+                  type="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={handlePasswordChange}
+                  bg={bgColor}
+                  color={textColor}
+                />
+              </Tooltip>
             </FormControl>
             <FormControl mt={6} isRequired>
               <FormLabel color={textColor}>Confirm Password</FormLabel>

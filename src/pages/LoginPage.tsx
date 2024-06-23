@@ -11,6 +11,7 @@ import {
   Text,
   useColorModeValue,
   Image,
+  useToast,
 } from "@chakra-ui/react";
 import { FaGoogle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -20,8 +21,9 @@ import logo from "../assets/logo.webp";
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { login } = useAuth();
+  const { login, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
+  const toast = useToast();
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) =>
     setEmail(e.target.value);
@@ -41,12 +43,29 @@ const LoginPage: React.FC = () => {
       await login(email, password);
       navigate("/home");
     } catch (error) {
-      console.error("Failed to login", error);
+      toast({
+        title: "Login failed.",
+        description: "Invalid email or password.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     }
   };
 
   const handleGoogleLogin = async () => {
-    // TODO: ADD GOOGLE LOGIN LOGIC
+    try {
+      await loginWithGoogle();
+      navigate("/home");
+    } catch (error) {
+      toast({
+        title: "Google login failed.",
+        description: "Something went wrong. Please try again.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
   };
 
   const bgColor = useColorModeValue("white", "#1A202C");
