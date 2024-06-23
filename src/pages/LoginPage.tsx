@@ -14,18 +14,20 @@ import {
 } from "@chakra-ui/react";
 import { FaGoogle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 import logo from "../assets/logo.webp";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) =>
     setEmail(e.target.value);
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) =>
     setPassword(e.target.value);
 
-  const navigate = useNavigate();
   const handleClickSignUp = () => {
     navigate("/signup");
   };
@@ -35,11 +37,16 @@ const LoginPage: React.FC = () => {
   };
 
   const handleLogin = async () => {
-    //TODO: ADD LOGIN LOGIC
+    try {
+      await login(email, password);
+      navigate("/home");
+    } catch (error) {
+      console.error("Failed to login", error);
+    }
   };
 
   const handleGoogleLogin = async () => {
-    //TODO: ADD GOOGLE LOGIN LOGIC
+    // TODO: ADD GOOGLE LOGIN LOGIC
   };
 
   const bgColor = useColorModeValue("white", "#1A202C");

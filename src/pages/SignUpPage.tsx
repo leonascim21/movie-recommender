@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { FaGoogle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 import logo from "../assets/logo.webp";
 
 const SignUpPage: React.FC = () => {
@@ -21,6 +22,8 @@ const SignUpPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const { signup } = useAuth();
+  const navigate = useNavigate();
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) =>
     setName(e.target.value);
@@ -31,7 +34,6 @@ const SignUpPage: React.FC = () => {
   const handleConfirmPasswordChange = (e: ChangeEvent<HTMLInputElement>) =>
     setConfirmPassword(e.target.value);
 
-  const navigate = useNavigate();
   const handleClickLogin = () => {
     navigate("/login");
   };
@@ -41,11 +43,20 @@ const SignUpPage: React.FC = () => {
   };
 
   const handleSignUp = async () => {
-    //TODO: ADD SIGN UP LOGIC
+    if (password !== confirmPassword) {
+      console.error("Passwords do not match");
+      return;
+    }
+    try {
+      await signup(email, password);
+      navigate("/home");
+    } catch (error) {
+      console.error("Failed to sign up", error);
+    }
   };
 
   const handleGoogleSignUp = async () => {
-    //TODO: ADD GOOGLE SIGN UP LOGIC
+    // TODO: ADD GOOGLE SIGN UP LOGIC
   };
 
   const bgColor = useColorModeValue("white", "#1A202C");
