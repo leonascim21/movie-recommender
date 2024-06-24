@@ -23,7 +23,7 @@ const NavBar = () => {
   };
 
   return (
-    <Box width="90%" padding="10px" boxShadow="sm">
+    <Box width="90%" padding="10px">
       <HStack padding="10px">
         <Image
           cursor="pointer"

@@ -2,6 +2,7 @@ import { Box, Grid, GridItem, Show } from "@chakra-ui/react";
 import NavBar from "../components/NavBar";
 import GenreList from "../components/GenreList";
 import MovieSlider from "../components/MovieSlider";
+import UserBasedMovieSlider from "../components/UserBasedMovieSlider";
 
 const HomePage = () => {
   return (
@@ -24,6 +25,7 @@ const HomePage = () => {
       <GridItem paddingLeft={10} area="main">
         <Box>
           <MovieSlider title="Trending Today" endpoint="/trending/movie/day" />
+          <UserBasedMovieSlider />
           <MovieSlider title="Top Rated" endpoint="/movie/top_rated" />
           <MovieSlider title="Popular" endpoint="/movie/popular" />
         </Box>
