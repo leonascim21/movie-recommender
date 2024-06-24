@@ -5,6 +5,7 @@ import GenrePage from "./pages/GenrePage";
 import NoPage from "./pages/NoPage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+import SearchResultsPage from "./pages/SearchResultsPage";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
           <Route path="/genre/:genreId" element={<GenrePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/account/:userId" element={<GenrePage />} />
+          <Route path="/search/:query" element={<SearchResultsPage />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
       </BrowserRouter>
