@@ -82,7 +82,7 @@ const UserBasedMovieSlider = () => {
         >
           {isLoading
             ? [1, 2, 3, 4, 5, 6].map((skeleton) => (
-                <Box key={skeleton} minWidth="200px" maxWidth="200px">
+                <Box key={skeleton}>
                   <MovieCardSkeleton />
                 </Box>
               ))
