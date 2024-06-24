@@ -1,4 +1,9 @@
-import { Button, Tooltip, useColorModeValue } from "@chakra-ui/react";
+import {
+  Button,
+  Tooltip,
+  useColorModeValue,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useAuth } from "../hooks/useAuth";
@@ -20,6 +25,7 @@ const LikeButton = ({ movieId }: LikeButtonProps) => {
   const { currentUser, likedMovies } = useAuth();
   const { details } = useMovieDetails(movieId);
   const [isLiked, setIsLiked] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     if (!currentUser) return;
@@ -27,7 +33,11 @@ const LikeButton = ({ movieId }: LikeButtonProps) => {
   }, [currentUser, likedMovies, movieId]);
 
   const handleClick = async () => {
-    if (!currentUser || !details) return;
+    if (!currentUser) {
+      onOpen();
+      setTimeout(onClose, 2000);
+      return;
+    }
 
     setIsLiked(!isLiked);
 
@@ -37,7 +47,7 @@ const LikeButton = ({ movieId }: LikeButtonProps) => {
       await updateDoc(userDocRef, {
         likedMovies: arrayUnion(movieId),
       });
-      details.genres.forEach((genre) => {
+      details?.genres.forEach((genre) => {
         updateDoc(userDocRef, {
           [`genreCount.${genre.id}`]: increment(1),
         });
@@ -46,7 +56,7 @@ const LikeButton = ({ movieId }: LikeButtonProps) => {
       await updateDoc(userDocRef, {
         likedMovies: arrayRemove(movieId),
       });
-      details.genres.forEach((genre) => {
+      details?.genres.forEach((genre) => {
         updateDoc(userDocRef, {
           [`genreCount.${genre.id}`]: increment(-1),
         });
@@ -60,8 +70,10 @@ const LikeButton = ({ movieId }: LikeButtonProps) => {
 
   return (
     <Tooltip
-      label={!currentUser ? "You need to be logged in to like movies" : ""}
+      borderRadius={10}
+      label="Must be logged to like movies"
       fontSize="md"
+      isOpen={!currentUser && isOpen}
     >
       <Button
         onClick={handleClick}
@@ -69,6 +81,7 @@ const LikeButton = ({ movieId }: LikeButtonProps) => {
         _hover={{ bg: hoverBg }}
         colorScheme="gray"
         size="lg"
+        pb={10}
         p={0}
         disabled={!currentUser}
       >
