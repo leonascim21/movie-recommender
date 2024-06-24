@@ -14,7 +14,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { FaGoogle } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import logo from "../assets/logo.webp";
 
@@ -135,6 +135,9 @@ const LoginPage: React.FC = () => {
             >
               Login
             </Button>
+            <Text mt={4} textAlign="center" color={textColor}>
+              <RouterLink to="/reset-password">Forgot Password?</RouterLink>
+            </Text>
           </Box>
           <Divider my={4} borderColor={textColor} />
           <Button
