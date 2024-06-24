@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 import GenreList from "../components/GenreList";
 import MovieSlider from "../components/MovieSlider";
 import UserBasedMovieSlider from "../components/UserBasedMovieSlider";
+import GenreListModal from "../components/GenreListModal";
 
 const HomePage = () => {
   return (
@@ -30,6 +31,7 @@ const HomePage = () => {
           <MovieSlider title="Popular" endpoint="/movie/popular" />
         </Box>
       </GridItem>
+      <GenreListModal />
     </Grid>
   );
 };
