@@ -1,4 +1,14 @@
-import { Box, HStack, Image, Button } from "@chakra-ui/react";
+import {
+  Box,
+  HStack,
+  Image,
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Avatar,
+} from "@chakra-ui/react";
 import logo from "../assets/logo.webp";
 import ColorModeSwitch from "./ColorModeSwitch";
 import { useNavigate } from "react-router-dom";
@@ -22,6 +32,10 @@ const NavBar = () => {
     navigate(`/`);
   };
 
+  const handleLikedMovies = () => {
+    navigate(`/liked-movies`);
+  };
+
   return (
     <Box width="90%" padding="10px">
       <HStack padding="10px">
@@ -33,9 +47,20 @@ const NavBar = () => {
         />
         <SearchBar />
         {currentUser ? (
-          <Button onClick={handleLogout} colorScheme="red" m={7}>
-            Logout
-          </Button>
+          <Menu>
+            <MenuButton
+              as={Button}
+              background="transparent"
+              _hover={{ background: "transparent" }}
+              _active={{ background: "transparent" }}
+            >
+              <Avatar size="sm" name={currentUser.email || "User"} />
+            </MenuButton>
+            <MenuList>
+              <MenuItem onClick={handleLikedMovies}>Liked Movies</MenuItem>
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            </MenuList>
+          </Menu>
         ) : (
           <Button onClick={handleLogin} colorScheme="green" m={7}>
             Login

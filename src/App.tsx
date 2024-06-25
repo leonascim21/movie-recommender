@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import LikedMoviesPage from "./pages/LikedMoviesPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/search/:query" element={<SearchResultsPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route path="/liked-movies" element={<LikedMoviesPage />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
       </BrowserRouter>
