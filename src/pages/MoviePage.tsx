@@ -15,6 +15,7 @@ import { useParams } from "react-router-dom";
 import useMovieDetails from "../hooks/useMovieDetails";
 import CriticBadge from "../components/CriticBadge";
 import LikeButton from "../components/LikeButton";
+import WatchOptions from "../components/WatchOptions";
 
 const MoviePage = () => {
   const { movieId } = useParams();
@@ -46,6 +47,7 @@ const MoviePage = () => {
           {!isSmallScreen && (
             <Box>
               <Image
+                borderRadius={10}
                 height="600px"
                 src={`https://image.tmdb.org/t/p/original${details.poster_path}`}
                 alt={`${details.title} Poster`}
@@ -97,7 +99,7 @@ const MoviePage = () => {
                 <VStack
                   alignItems={{ base: "center", md: "flex-start" }}
                   pl={{ md: 8 }}
-                  pb={10}
+                  pb={5}
                 >
                   {details.vote_average > 0 && (
                     <CriticBadge
@@ -107,6 +109,7 @@ const MoviePage = () => {
                   <LikeButton movieId={Number(movieId)} />
                 </VStack>
               </HStack>
+              <WatchOptions movieId={Number(movieId)} />
             </VStack>
           </Box>
         </HStack>

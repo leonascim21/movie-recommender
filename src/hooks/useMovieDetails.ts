@@ -7,13 +7,6 @@ interface Genre {
   name: string;
 }
 
-interface CastMember {
-  id: number;
-  name: string;
-  character: string;
-  profile_path: string | null;
-}
-
 interface Trailer {
   id: string;
   key: string;
@@ -31,9 +24,6 @@ interface FetchDetailsResponse {
   vote_average: number;
   vote_count: number;
   title: string;
-  credits: {
-    cast: CastMember[];
-  };
   videos: {
     results: Trailer[];
   };
