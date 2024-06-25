@@ -1,4 +1,11 @@
-import { Box, Heading, HStack, IconButton, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  HStack,
+  IconButton,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import { useRef } from "react";
 import useMovies from "../hooks/useMovies";
@@ -29,6 +36,15 @@ const MovieSlider = ({ endpoint, title, genre }: Props) => {
     }
   };
 
+  const arrowBg = useColorModeValue(
+    "rgba(255, 255, 255, 0.8)",
+    "rgba(0, 0, 0, 0.8)"
+  );
+  const arrowHoverBg = useColorModeValue(
+    "rgba(255, 255, 255, 0.9)",
+    "rgba(0, 0, 0, 0.9)"
+  );
+
   return (
     <Box padding="20px" position="relative" maxWidth="90%">
       <Heading mb="4">{title}</Heading>
@@ -47,8 +63,8 @@ const MovieSlider = ({ endpoint, title, genre }: Props) => {
           transform="translateY(-50%)"
           zIndex={2}
           onClick={scrollLeft}
-          bg="rgba(0, 0, 0, 0.8)"
-          _hover={{ bg: "rgba(0, 0, 0, 0.9)" }}
+          bg={arrowBg}
+          _hover={{ bg: arrowHoverBg }}
           size="lg"
         />
         <HStack
@@ -93,9 +109,8 @@ const MovieSlider = ({ endpoint, title, genre }: Props) => {
           transform="translateY(-50%)"
           zIndex={2}
           onClick={scrollRight}
-          bg="rgba(0, 0, 0, 0.8)"
-          _hover={{ bg: "rgba(0, 0, 0, 0.9)" }}
-          boxShadow="md"
+          bg={arrowBg}
+          _hover={{ bg: arrowHoverBg }}
           size="lg"
         />
       </Box>

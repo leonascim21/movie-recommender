@@ -90,15 +90,19 @@ const MoviePage = () => {
               >
                 <Box textAlign={{ base: "center", md: "left" }}>
                   <Text pb={5}>{`Release Date: ${details.release_date}`}</Text>
-                  <Text>{`Movie Duration: ${details.runtime} minutes`}</Text>
+                  {details.runtime > 0 && (
+                    <Text>{`Movie Duration: ${details.runtime} minutes`}</Text>
+                  )}
                 </Box>
                 <VStack
                   alignItems={{ base: "center", md: "flex-start" }}
                   pl={{ md: 8 }}
                 >
-                  <CriticBadge
-                    rating={(details.vote_average * 10).toFixed(0)}
-                  />
+                  {details.vote_average > 0 && (
+                    <CriticBadge
+                      rating={(details.vote_average * 10).toFixed(0)}
+                    />
+                  )}
                   <LikeButton movieId={Number(movieId)} />
                 </VStack>
               </HStack>

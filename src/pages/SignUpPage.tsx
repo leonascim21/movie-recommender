@@ -148,6 +148,7 @@ const SignUpPage: React.FC = () => {
               <Tooltip
                 label="Password must be at least 6 characters"
                 fontSize="md"
+                borderRadius={10}
               >
                 <Input
                   type="password"
