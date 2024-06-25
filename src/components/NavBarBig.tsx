@@ -37,7 +37,7 @@ const NavBarBig = () => {
   };
 
   return (
-    <Box width="90%" padding="10px">
+    <Box width={{ lg: "calc(100% - 200px)" }} padding="10px">
       <HStack padding="10px">
         <Image
           cursor="pointer"

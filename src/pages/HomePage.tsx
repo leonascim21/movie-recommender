@@ -14,6 +14,7 @@ const HomePage = () => {
       }}
       overflowX="hidden"
       overflowY="auto"
+      gridTemplateColumns={{ lg: "160px 1fr" }}
     >
       <GridItem area="nav">
         <NavBar />
@@ -23,7 +24,11 @@ const HomePage = () => {
           <GenreList />
         </GridItem>
       </Show>
-      <GridItem paddingLeft={10} area="main">
+      <GridItem
+        paddingLeft={10}
+        area="main"
+        width={{ lg: "calc(100% - 80px)" }}
+      >
         <Box>
           <MovieSlider title="Trending Today" endpoint="/trending/movie/day" />
           <UserBasedMovieSlider />
