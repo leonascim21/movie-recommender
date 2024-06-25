@@ -81,7 +81,6 @@ const LikeButton = ({ movieId }: LikeButtonProps) => {
         _hover={{ bg: hoverBg }}
         colorScheme="gray"
         size="lg"
-        pb={10}
         p={0}
         disabled={!currentUser}
       >

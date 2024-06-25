@@ -97,6 +97,7 @@ const MoviePage = () => {
                 <VStack
                   alignItems={{ base: "center", md: "flex-start" }}
                   pl={{ md: 8 }}
+                  pb={10}
                 >
                   {details.vote_average > 0 && (
                     <CriticBadge
