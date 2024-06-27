@@ -19,35 +19,37 @@ import {
 import { HamburgerIcon } from "@chakra-ui/icons";
 import logo from "../assets/logo.webp";
 import ColorModeSwitch from "./ColorModeSwitch";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import SearchBar from "./SearchBar";
 import GenreList from "./GenreList";
+import { useEffect } from "react";
 
 const NavBarSmall = () => {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const location = useLocation();
+
+  useEffect(() => {
+    onClose();
+  }, [location.pathname, onClose]);
 
   const handleClickHome = () => {
     navigate(`/`);
-    onClose();
   };
 
   const handleLogin = () => {
     navigate("/login");
-    onClose();
   };
 
   const handleLogout = async () => {
     await logout();
     navigate(`/`);
-    onClose();
   };
 
   const handleLikedMovies = () => {
     navigate(`/liked-movies`);
-    onClose();
   };
 
   return (
