@@ -22,6 +22,7 @@ import ColorModeSwitch from "./ColorModeSwitch";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import SearchBar from "./SearchBar";
+import GenreList from "./GenreList";
 
 const NavBarSmall = () => {
   const { currentUser, logout } = useAuth();
@@ -68,6 +69,9 @@ const NavBarSmall = () => {
               </Box>
               <Box pt={7} pl={2}>
                 <ColorModeSwitch />
+              </Box>
+              <Box pt={7} pl={2}>
+                <GenreList />
               </Box>
             </DrawerBody>
           </DrawerContent>

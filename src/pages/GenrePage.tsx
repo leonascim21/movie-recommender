@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import GenreList from "../components/GenreList";
 import MovieGrid from "../components/MovieGrid";
-import GenreListModal from "../components/GenreListModal";
 import { Button, Flex, Grid, GridItem, Heading, Show } from "@chakra-ui/react";
 
 const genres = {
@@ -67,7 +66,6 @@ const GenrePage = () => {
       <Flex paddingBottom="20px" justifyContent="center">
         <Button onClick={loadMoreMovies}>Show More</Button>
       </Flex>
-      <GenreListModal />
     </>
   );
 };

@@ -4,7 +4,6 @@ import NavBar from "../components/NavBar";
 import GenreList from "../components/GenreList";
 import SearchResultsGrid from "../components/SearchResultsGrid";
 import useSearch from "../hooks/useSearch";
-import GenreListModal from "../components/GenreListModal";
 
 const SearchResultsPage = () => {
   const { query } = useParams<{ query: string }>();
@@ -37,7 +36,6 @@ const SearchResultsPage = () => {
           />
         </Box>
       </GridItem>
-      <GenreListModal />
     </Grid>
   );
 };
