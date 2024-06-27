@@ -19,8 +19,18 @@ import WatchOptions from "../components/WatchOptions";
 
 const MoviePage = () => {
   const { movieId } = useParams();
-  const { details, error } = useMovieDetails(parseInt(movieId as string));
+  const { details, error, loading } = useMovieDetails(
+    parseInt(movieId as string)
+  );
   const [isSmallScreen] = useMediaQuery("(max-width: 820px)");
+
+  if (loading) {
+    return (
+      <>
+        <NavBar />
+      </>
+    );
+  }
 
   if (details === undefined) {
     return (

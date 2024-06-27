@@ -32,25 +32,30 @@ interface FetchDetailsResponse {
 const useMovieDetails = (id: number) => {
     const [details, setDetails] = useState<FetchDetailsResponse>();
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(true);
   
     useEffect(() => {
         const controller = new AbortController();
         
-
-      apiClient
+        apiClient
         .get<FetchDetailsResponse>(`/movie/${id}`, {
           params: { append_to_response: "credits,videos" },
           signal: controller.signal,
         })
-        .then((res) => setDetails(res.data))
+        .then((res) => {
+          setDetails(res.data);
+          setLoading(false);
+        })
         .catch((err) => {
-            if(err instanceof CanceledError) return;
-            setError(err.message)});
+          if (err instanceof CanceledError) return;
+          setError(err.message);
+          setLoading(false);
+        });
 
         return () => controller.abort();
     }, []);
 
-    return {details, error};
+    return {details, error, loading};
 }
 
 export default useMovieDetails;
