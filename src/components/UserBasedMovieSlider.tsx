@@ -1,4 +1,10 @@
-import { Box, Heading, HStack, IconButton } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  HStack,
+  IconButton,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import { useRef, useState, useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
@@ -43,6 +49,15 @@ const UserBasedMovieSlider = () => {
     }
   };
 
+  const arrowBg = useColorModeValue(
+    "rgba(255, 255, 255, 0.8)",
+    "rgba(0, 0, 0, 0.8)"
+  );
+  const arrowHoverBg = useColorModeValue(
+    "rgba(255, 255, 255, 0.9)",
+    "rgba(0, 0, 0, 0.9)"
+  );
+
   return (
     <Box padding="20px" position="relative" maxWidth="90%">
       <Heading mb="4">Recommended for You</Heading>
@@ -61,8 +76,8 @@ const UserBasedMovieSlider = () => {
           transform="translateY(-50%)"
           zIndex={2}
           onClick={scrollLeft}
-          bg="rgba(0, 0, 0, 0.8)"
-          _hover={{ bg: "rgba(0, 0, 0, 0.9)" }}
+          bg={arrowBg}
+          _hover={{ bg: arrowHoverBg }}
           size="lg"
         />
         <HStack
@@ -108,9 +123,8 @@ const UserBasedMovieSlider = () => {
           transform="translateY(-50%)"
           zIndex={2}
           onClick={scrollRight}
-          bg="rgba(0, 0, 0, 0.8)"
-          _hover={{ bg: "rgba(0, 0, 0, 0.9)" }}
-          boxShadow="md"
+          bg={arrowBg}
+          _hover={{ bg: arrowHoverBg }}
           size="lg"
         />
       </Box>
